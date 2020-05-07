@@ -42,8 +42,38 @@ babynames %>%
   mutate(fraction_max = number/name_max)
 # ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//====
 
+# Filter for the names Steven, Thomas, and Matthew
+names_filtered <- names_normalized %>%
+  filter(name %in% c("Steven", "Thomas", "Matthew"))
+
+# Visualize these names over time
+ggplot(names_filtered, aes(year, fraction_max, color = name))+
+  geom_line()
+# ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//====
+babynames_fraction %>%
+  # Arrange the data in order of name, then year 
+  arrange(name, year) %>%
+  # Group the data by name
+  group_by(name) %>%
+  # Add a ratio column that contains the ratio between each year 
+  mutate(ratio = fraction/lag(fraction))
+# ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//====
+babynames_ratios_filtered %>%
+  # Extract the largest ratio from each name 
+  top_n(1,ratio) %>%
+  # Sort the ratio column in descending order 
+  arrange(desc(ratio)) %>%
+  # Filter for fractions greater than or equal to 0.001
+  filter(fraction >= 0.001)
+# ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//====
 
 
 
 
 # ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//====
+
+
+
+
+# ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//==== ====//====
+

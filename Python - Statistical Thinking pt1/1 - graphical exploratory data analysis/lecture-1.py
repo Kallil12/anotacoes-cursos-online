@@ -118,6 +118,3 @@ _ = plt.ylabel('ECDF')
 # Display the plot
 plt.show()
 
-# ----//---- ----//---- ----//---- ----//---- ----//---- ----//---- 
-# exercise 8
-

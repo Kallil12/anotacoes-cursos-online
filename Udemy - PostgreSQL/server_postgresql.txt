@@ -1,0 +1,44 @@
+----
+# 1
+----
+
+if your server is on the same machine:
+provide a name: test
+provide server: localhost
+port: 5432 (default port)
+user: postgres (default user) you can change later in login roles
+password: provide something
+
+restart if required and it will then show you
+database with postgres (default db),
+tablespace,
+login roles
+under your server and you should be good to go
+
+----
+# 2
+----
+
+If I remember correctly the user postgres has no DB password set on Ubuntu by default. That means, that you can login to that account only by using the postgres OS user account.
+
+Assuming, that you have root access on the box you can do:
+
+sudo -u postgres psql
+If that fails with a database "postgres" does not exists error, then you are most likely not on a Ubuntu or Debian server :-) In this case simply add template1 to the command:
+
+sudo -u postgres psql template1
+If any of those commands fail with an error psql: FATAL:  password authentication failed for user "postgres" then check the file /etc/postgresql/8.4/main/pg_hba.conf: There must be a line like this as the first non-comment line:
+
+local   all         postgres                          ident
+For newer versions of PostgreSQL ident actually might be peer. That's OK also.
+
+Inside the psql shell you can give the DB user postgres a password:
+
+ALTER USER postgres PASSWORD 'newPassword';
+You can leave the psql shell by typing CtrlD or with the command \q.
+
+Now you should be able to give pgAdmin a valid password for the DB superuser and it will be happy too. :-)
+
+----
+# 3
+----

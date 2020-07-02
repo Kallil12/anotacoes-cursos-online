@@ -1,1 +1,1 @@
-Apenas trechos de código, em R e Python, que eu achei interessante anotar durante alguns cursos do DataCamp.
+Anotações de cursos online do Datacamp, Udemy, Coursera entre outros.

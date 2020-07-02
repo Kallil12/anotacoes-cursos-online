@@ -1,0 +1,11 @@
+# 1
+we want the first name, last name and email address from all the customers
+
+SELECT first_name,last_name,email FROM customer;
+
+# 2
+Show the distinct values for movie rating
+
+SELECT DISTINCT rating FROM film;
+
+# 3

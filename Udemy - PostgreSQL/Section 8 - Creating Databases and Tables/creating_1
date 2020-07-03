@@ -1,0 +1,149 @@
+Creating and linking tables
+
+CREATE TABLE account(
+	user_id SERIAL PRIMARY KEY,
+	username VARCHAR(50) UNIQUE NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	email VARCHAR(250) UNIQUE NOT NULL,
+	created_on TIMESTAMP NOT NULL,
+	last_login TIMESTAMP
+)
+
+CREATE TABLE job(
+	job_id SERIAL PRIMARY KEY,
+	job_name VARCHAR(200) UNIQUE NOT NULL
+)
+
+CREATE TABLE account_job(
+	user_id INTEGER REFERENCES account(user_id),
+	job_id INTEGER REFERENCES job(job_id),
+	hire_date TIMESTAMP
+)
+
+=====================================================
+
+Now it's time to insert data into the table
+
+INSERT INTO account(username, password, email, created_on)
+VALUES
+('Jose', 'password','jose@mail.com',CURRENT_TIMESTAMP)
+
+INSERT INTO job(job_name)
+VALUES
+('Racing Driver')
+
+=====================================================
+Updating values in the columns
+
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP
+
+UPDATE account
+SET last_login = created_on
+
+UPDATE account_job
+SET hire_date = account.created_on
+FROM account
+WHERE account_job.user_id = account.user_id
+
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP
+RETURNING email, last_login, created_on
+
+=====================================================
+
+DELETE FROM job
+WHERE job_name = 'Copilotqieiy'
+RETURNING job_id, job_name;
+
+=====================================================
+
+Alter - allows changes to an existing table structure, add, drop or rename columns or tables
+
+ALTER TABLE new_info 
+ALTER COLUMN people DROP NOT NULL
+
+ALTER TABLE new_info 
+ALTER COLUMN people SET NOT NULL
+
+=====================================================
+
+Drop allows for the complete removal of a column in a table, also remove its indexes and constraints
+involving the column. However it will not remove columns used in views, triggers, or stored procedures without the additional CASCADE clause.
+
+ALTER TABLE new_info 
+DROP COLUMN IF EXISTS people
+
+=====================================================
+
+Check Constraint
+
+CREATE TABLE employees(
+	emd_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	birthdate DATE CHECK (birthdate > '1900-01-01'),
+	hire_date DATE CHECK (hire_date > birthdate),
+	salary INTEGER CHECK (salary > 0)
+)
+
+the code below will insert data into the table and the newly created table will check if this new
+data is valid according to the constraint
+
+INSERT INTO employees(
+	first_name,
+	last_name,
+	birthdate,
+	hire_date,
+	salary
+)
+VALUES
+('Sammy',
+'Mammy',
+'1990-01-02',
+'2010-01-01',
+250
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

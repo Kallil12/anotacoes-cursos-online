@@ -1,0 +1,49 @@
+CREATE TABLE students(
+	student_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	homeroom_number INTEGER NOT NULL,
+	phone VARCHAR(25) UNIQUE NOT NULL,
+	email VARCHAR(50) UNIQUE NOT NULL,
+	graduation_year VARCHAR(10)
+)
+
+=====================================================
+
+CREATE TABLE teachers(
+	teacher_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	homeroom_number INTEGER NOT NULL,
+	department VARCHAR(50),
+	email VARCHAR(50) UNIQUE NOT NULL,
+	phone VARCHAR(50) UNIQUE NOT NULL
+)
+
+=====================================================
+
+ALTER TABLE students 
+ALTER COLUMN email DROP NOT NULL
+
+=====================================================
+
+INSERT INTO students(first_name, last_name, phone, 
+					 homeroom_number, graduation_year)
+VALUES
+('Mark','Watney','777-555-1234','5','2035')
+
+=====================================================
+
+INSERT INTO teachers(first_name, last_name, phone, 
+					 homeroom_number, department, email)
+VALUES
+('Jonas','Salk','777-555-4321','5','Biology', 'jsalk@school.org')
+
+=====================================================
+
+
+
+
+
+
+
